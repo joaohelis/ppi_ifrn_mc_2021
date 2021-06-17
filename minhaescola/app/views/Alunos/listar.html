@@ -1,0 +1,9 @@
+<h1>Listagem de Alunos</h1>
+
+<ul>
+	#{list items:alunos, as: 'aluno'} 
+	<li>${aluno.nome} | ${aluno.cpf}</li>
+	#{/list}
+</ul>
+
+<a href="@{Alunos.form}">Cadastrar novo aluno</a>
