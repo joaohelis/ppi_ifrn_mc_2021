@@ -1,12 +1,11 @@
-
-
 <h1>Formulário de Cadastro de Aluno</h1>
 
 
 <form action="@{Alunos.salvar}" method="post">
-	Nome: <input type="text" name="nome"><br>
-	Matrícula: <input type="text" name="matricula"><br>
-	CPF: <input type="text" name="cpf"><br>
-	Data de Nascimento: <input type="text" name="dataNascimento" placeholder="dd/mm/aaaa"><br> 
+	<input type="hidden" name="aluno.id" value="${aluno?.id}">
+	Nome: <input type="text" name="aluno.nome" value="${aluno?.nome}"><br>
+	Matrícula: <input type="text" name="aluno.matricula" value="${aluno?.matricula}"><br>
+	CPF: <input type="text" name="aluno.cpf" value="${aluno?.cpf}"><br>
+	Data de Nascimento: <input type="text" name="aluno.dataNascimento" placeholder="dd/mm/aaaa" value="${aluno?.dataNascimento?.format('dd/MM/yyyy')}"><br> 
 	<input type="submit" value="Cadastrar">
 </form>

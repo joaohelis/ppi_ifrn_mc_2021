@@ -2,7 +2,9 @@
 
 <ul>
 	#{list items:alunos, as: 'aluno'} 
-	<li>${aluno.nome} | ${aluno.cpf}</li>
+	<li>${aluno.nome} | ${aluno.cpf} | ${aluno?.dataNascimento?.format("dd/MM/yyyy")} | 
+	<a href="@{Alunos.editar(aluno.id)}">Editar</a> | <a href="@{Alunos.remover(aluno.id)}">Remover</a>
+	</li>
 	#{/list}
 </ul>
 
