@@ -5,16 +5,12 @@ import play.mvc.*;
 
 import java.util.*;
 
+import interceptors.Seguranca;
 import models.*;
 
+@With(Seguranca.class)
 public class Application extends Controller {
-	
-	@Before(unless= {"login", "autenticar"})
-	public static void checarAutenticacao() {
-		if(session.get("emailUsuarioAutenticado") == null)
-			login();
-	}
-	
+		
 	// página inicial do sistema
     public static void index() {    	
         render();

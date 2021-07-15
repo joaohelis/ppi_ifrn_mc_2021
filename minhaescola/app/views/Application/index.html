@@ -1,9 +1,7 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Sistema de Controle Acadêmico' /}
 
 <h1>Minha Escola - Sistema de Controle Acadêmico</h1>
-
-Usuário: ${session.get("emailUsuarioAutenticado")} <a href="@{Application.logout}">Logout</a>
 
 <ul>
 	<li><a href="@{Alunos.form}">Cadastro de Aluno</a></li>

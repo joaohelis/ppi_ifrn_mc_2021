@@ -1,5 +1,7 @@
-<h1>Formulário de Cadastro de Aluno</h1>
+#{extends 'main.html' /}
+#{set title:'Formulário de Cadastro de Aluno' /}
 
+<h1>Formulário de Cadastro de Aluno</h1>
 
 <form action="@{Alunos.salvar}" method="post">
 	<input type="hidden" name="aluno.id" value="${aluno?.id}">
