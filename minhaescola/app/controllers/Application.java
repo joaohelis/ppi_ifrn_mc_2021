@@ -32,6 +32,7 @@ public class Application extends Controller {
     		session.put("emailUsuarioAutenticado", usuario.email);
     		index();
     	}else {
+    		flash.error("Usuário ou senha inválidos!");
     		login();
     	}    	
     }

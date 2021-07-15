@@ -1,5 +1,12 @@
 <h1>Login</h1>
 
+
+#{if flash.error}
+	<div class="color:red;">
+		<p>${flash.error.raw()}</p>
+	</div>
+#{/if}
+
 <form action="@{Application.autenticar}" method="post">
 Usuario: <input type="text" name="email">
 Senha: <input type="password" name="senha">
