@@ -4,12 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import models.Aluno;
+import models.Curso;
 import play.mvc.Controller;
 
 public class Alunos extends Controller{
 	
-	public static void form() {
-		render();
+	public static void form() {	
+		List<Curso> cursos = Curso.findAll();
+		render(cursos);
 	}
 	
 	public static void listar() {
@@ -19,7 +21,8 @@ public class Alunos extends Controller{
 	
 	public static void editar(Long id) {
 		Aluno aluno = Aluno.findById(id);
-		renderTemplate("Alunos/form.html", aluno);
+		List<Curso> cursos = Curso.findAll();
+		renderTemplate("Alunos/form.html", aluno, cursos);
 	}
 	
 //  EXEMPLO DE LISTAGEM COM ENTIDADES UTILIZANDO EXCLUSÃO LÓGICA

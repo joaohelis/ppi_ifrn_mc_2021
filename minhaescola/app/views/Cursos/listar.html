@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Listagem de Cursos' /}
+
+<h1>Listagem de Cursos</h1>
+
+<ul>
+	#{list items:cursos, as: 'curso'} 
+	<li>${curso.nome} 
+	  <a href="@{Cursos.editar(curso.id)}">Editar</a> 
+	| <a href="@{Cursos.remover(curso.id)}">Remover</a>
+	| <a href="@{Cursos.detalhes(curso.id)}">Detalhes</a>
+	</li>
+	#{/list}
+</ul>
+
+<a href="@{Cursos.form}">Cadastrar novo curso</a>

@@ -8,6 +8,14 @@
 	Nome: <input type="text" name="aluno.nome" value="${aluno?.nome}"><br>
 	Matrícula: <input type="text" name="aluno.matricula" value="${aluno?.matricula}"><br>
 	CPF: <input type="text" name="aluno.cpf" value="${aluno?.cpf}"><br>
-	Data de Nascimento: <input type="text" name="aluno.dataNascimento" placeholder="dd/mm/aaaa" value="${aluno?.dataNascimento?.format('dd/MM/yyyy')}"><br> 
+	Data de Nascimento: <input type="text" name="aluno.dataNascimento" placeholder="dd/mm/aaaa" value="${aluno?.dataNascimento?.format('dd/MM/yyyy')}"><br>
+	
+	Curso: <select name="aluno.curso.id">
+		<option value="">---</option>
+		#{list items:cursos, as: 'curso'}
+			<option value="${curso.id}" #{if curso.id == aluno?.curso?.id} selected #{/if} >${curso.nome}</option>
+		#{/list}		
+	</select>	
+	<br>
 	<input type="submit" value="Cadastrar">
 </form>

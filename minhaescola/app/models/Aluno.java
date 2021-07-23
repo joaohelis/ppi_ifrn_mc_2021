@@ -3,6 +3,9 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -15,6 +18,10 @@ public class Aluno extends Model {
 	public Date dataNascimento;
 	public boolean ativo;
 	
+	@ManyToOne
+	@JoinColumn(name="curso_id")
+	public Curso curso; 
+	
 	public Aluno() {
 		this.ativo = true;
 	}
@@ -24,4 +31,8 @@ public class Aluno extends Model {
 		return 10;
 	}
 
+	@Override
+	public String toString() {
+		return "Aluno [nome=" + nome + "]";
+	}
 }

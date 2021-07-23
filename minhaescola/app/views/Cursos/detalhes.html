@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Formulário de Listagem de Cursos' /}
+
+<h1>${curso.nome}</h1>
+
+<b>Lista de alunos do curso:</b>
+<ul>
+#{list items:curso.alunos, as: 'aluno'}
+	<li>${aluno.nome}</li>
+#{/list}
+</ul>

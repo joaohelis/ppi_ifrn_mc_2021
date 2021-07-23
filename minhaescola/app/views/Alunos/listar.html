@@ -3,12 +3,26 @@
 
 <h1>Listagem de Alunos</h1>
 
-<ul>
-	#{list items:alunos, as: 'aluno'} 
-	<li>${aluno.nome} | ${aluno.cpf} | ${aluno?.dataNascimento?.format("dd/MM/yyyy")} | 
-	<a href="@{Alunos.editar(aluno.id)}">Editar</a> | <a href="@{Alunos.remover(aluno.id)}">Remover</a>
-	</li>
-	#{/list}
-</ul>
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>CPF</th> 
+    <th>Data de Nascimento</th>
+    <th>Curso</th>
+    <th>Opções</th>
+  </tr>
+  #{list items:alunos, as: 'aluno'} 
+  <tr>
+    <td>${aluno.nome}</td>    
+    <td>${aluno.cpf}</td>
+    <td>${aluno?.dataNascimento?.format("dd/MM/yyyy")}</td>
+    <td>${aluno?.curso?.nome}</td>
+    <td>
+    	<a href="@{Alunos.editar(aluno.id)}">Editar</a>
+    	<a href="@{Alunos.remover(aluno.id)}">Remover</a>
+    </td>
+  </tr>
+  #{/list}
+</table>
 
 <a href="@{Alunos.form}">Cadastrar novo aluno</a>

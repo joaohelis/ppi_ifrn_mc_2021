@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'Formulário de Listagem de Cursos' /}
+
+<h1>Formulário de Cadastro de Cursos</h1>
+
+<form action="@{Cursos.salvar}" method="post">
+	Nome: <input type="text" name="curso.nome"><br>
+	
+	<input type="submit" value="Enviar">	
+</form>
