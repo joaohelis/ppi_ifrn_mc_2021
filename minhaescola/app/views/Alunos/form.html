@@ -3,12 +3,18 @@
 
 <h1>Formulário de Cadastro de Aluno</h1>
 
-<form action="@{Alunos.salvar}" method="post">
+<form action="@{Alunos.salvar}" method="post" enctype="multipart/form-data" >
 	<input type="hidden" name="aluno.id" value="${aluno?.id}">
 	Nome: <input type="text" name="aluno.nome" value="${aluno?.nome}"><br>
 	Matrícula: <input type="text" name="aluno.matricula" value="${aluno?.matricula}"><br>
 	CPF: <input type="text" name="aluno.cpf" value="${aluno?.cpf}"><br>
 	Data de Nascimento: <input type="text" name="aluno.dataNascimento" placeholder="dd/mm/aaaa" value="${aluno?.dataNascimento?.format('dd/MM/yyyy')}"><br>
+	
+	Selecione a foto para o aluno(a): <input type="file" name="aluno.foto"><br>
+	
+	#{if aluno?.foto}
+		<img width="50px" alt="" src="@{Alunos.renderFotoAluno(aluno.id)}"><br>
+	#{/if}
 	
 	Curso: <select name="aluno.curso.id">
 		<option value="">---</option>

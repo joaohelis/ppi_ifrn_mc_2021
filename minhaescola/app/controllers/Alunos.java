@@ -6,6 +6,7 @@ import java.util.List;
 import models.Aluno;
 import models.Curso;
 import play.mvc.Controller;
+import sun.security.util.SecurityConstants;
 
 public class Alunos extends Controller{
 	
@@ -65,5 +66,11 @@ public class Alunos extends Controller{
 		aluno.save();
 		listar();
 	}
-
+	
+	public static void renderFotoAluno(Long idAluno) {
+		Aluno aluno = Aluno.findById(idAluno);
+		response.setContentTypeIfNotSet(aluno.foto.type());
+		renderBinary(aluno.foto.get());		
+	}
+	
 }

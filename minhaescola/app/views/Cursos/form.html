@@ -4,7 +4,38 @@
 <h1>Formulário de Cadastro de Cursos</h1>
 
 <form action="@{Cursos.salvar}" method="post">
-	Nome: <input type="text" name="curso.nome"><br>
+	
+	<input type="hidden" name="curso.id" value=${curso?.id} >
+
+	Nome: <input type="text" value="${curso?.nome}" name="curso.nome"><br>
+	
+	#{if curso != null}
+	
+	<br>
+	Alunos matriculados:
+	<ul>
+	#{list items:curso.alunos, as:'aluno'}
+		<li>${aluno.nome}</li>		
+	#{/list}
+	</ul>	
+	
+	#{/if}
+	
+	<br>
 	
 	<input type="submit" value="Enviar">	
 </form>
+
+#{if curso != null}
+<form action="@{Cursos.adicionarAluno}">
+<input type="hidden" name="idCurso" value="${curso.id}">
+<br>
+	<b>Alunos não matriculados:</b>
+	<select name="idAluno">
+		#{list items:alunosNaoMatriculados, as:'alunoNaoMat'}
+			<option value="${alunoNaoMat.id}">${alunoNaoMat.nome}</option>
+		#{/list}
+	</select><br>
+	<input type="submit" value="Adicionar aluno ao curso">	
+</form>
+#{/if}

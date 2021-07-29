@@ -23,22 +23,27 @@ public class Inicializador extends Job {
 			usuario2.save();						
 		}
 		
+		Curso curso = null;
+		Curso curso2 = null;
+
+		if(Curso.count() == 0) {
+			curso = new Curso("Informática");
+			curso.save();
+			
+			curso2 = new Curso("Química");
+			curso2.save();
+		}
+		
 		if(Aluno.count() == 0) {
 			Aluno aluno = new Aluno();
 			aluno.nome = "Fulano";
+			aluno.curso = curso;
 			aluno.save();
 			
 			Aluno aluno2 = new Aluno();
 			aluno2.nome = "Sicrano";
+			aluno2.curso = curso2;
 			aluno2.save();
-		}
-		
-		if(Curso.count() == 0) {
-			Curso curso = new Curso("Informática");
-			curso.save();
-			
-			Curso curso2 = new Curso("Química");
-			curso2.save();
 		}
 	}
 }

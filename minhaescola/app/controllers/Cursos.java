@@ -21,8 +21,8 @@ public class Cursos extends Controller {
 	
 	public static void editar(Long id) {
 		Curso curso = Curso.findById(id);
-		List<Aluno> alunos = Aluno.findAll();
-		renderTemplate("Cursos/form.html", curso, alunos);
+		List<Aluno> alunosNaoMatriculados = Aluno.find("curso = null").fetch();		
+		renderTemplate("Cursos/form.html", curso, alunosNaoMatriculados);
 	}
 	
 	public static void remover(Long id) {
@@ -44,6 +44,14 @@ public class Cursos extends Controller {
 	public static void salvar(Curso curso) {
 		curso.save();
 		listar();
+	}
+	
+	public static void adicionarAluno(Long idCurso, Long idAluno) {
+		Curso curso = Curso.findById(idCurso);
+		Aluno aluno = Aluno.findById(idAluno);		
+		aluno.curso = curso;
+		aluno.save();
+		editar(idCurso);		
 	}
 
 }
