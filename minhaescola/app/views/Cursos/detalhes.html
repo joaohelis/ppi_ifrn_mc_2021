@@ -1,11 +1,38 @@
-#{extends 'main.html' /}
-#{set title:'Formulário de Listagem de Cursos' /}
+#{extends 'main-admin.html' /}
+#{set title:'Detalhes de Curso' /}
+#{set pageTitle:'Detalhes de Curso' /}
 
-<h1>${curso.nome}</h1>
-
-<b>Lista de alunos do curso:</b>
-<ul>
-#{list items:curso.alunos, as: 'aluno'}
-	<li>${aluno.nome}</li>
-#{/list}
-</ul>
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Detalhes de Curso</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+    <div class="card-body">
+    	
+    	<h3>Curso: ${curso.nome}</h3>
+    	
+    	<br>
+        <h5>Alunos Matriculados</h5>
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th style="width: 10px">#</th>
+		      <th>Nome</th>
+		      <th>CPF</th>
+		      <th>Data de Nascimento</th>		      
+		    </tr>
+		  </thead>
+		  <tbody>
+		  #{list items:curso.alunos, as: 'aluno'} 
+		  <tr>
+		  	<td>${aluno_index}</td>
+		    <td>${aluno.nome}</td>    
+		    <td>${aluno.cpf}</td>
+		    <td>${aluno?.dataNascimento?.format("dd/MM/yyyy")}</td>		    
+		  </tr>
+		  #{/list}
+		  </tbody>
+		</table>
+	</div>	
+</div>	

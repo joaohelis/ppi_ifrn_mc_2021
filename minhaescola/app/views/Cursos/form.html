@@ -1,41 +1,91 @@
-#{extends 'main.html' /}
-#{set title:'Formulário de Listagem de Cursos' /}
+#{extends 'main-admin.html' /}
+#{set title:'Formulário de Curso' /}
 
-<h1>Formulário de Cadastro de Cursos</h1>
+%{
+	String pageTitle = (aluno?.id)? "Edição de Curso" : "Cadastro de Curso";
+%}
 
-<form action="@{Cursos.salvar}" method="post">
-	
-	<input type="hidden" name="curso.id" value=${curso?.id} >
+#{set pageTitle:pageTitle /}
 
-	Nome: <input type="text" value="${curso?.nome}" name="curso.nome"><br>
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Formulário de Curso</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+  <div class="card-body">
+    <form action="@{Cursos.salvar}" method="post" enctype="multipart/form-data" >
+    
+    <input type="hidden" name="curso.id" value=${curso?.id} >
 	
-	#{if curso != null}
-	
-	<br>
-	Alunos matriculados:
-	<ul>
-	#{list items:curso.alunos, as:'aluno'}
-		<li>${aluno.nome}</li>		
-	#{/list}
-	</ul>	
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" name="curso.nome" class="form-control" placeholder="Nome" value="${curso?.nome}">
+      <span class="error-validacao">#{error 'curso.nome' /}</span><br>        
+    </div>
+    
+    #{if curso?.id != null}
+    
+    <h5>Alunos Matriculados</h5>
+    <table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th style="width: 10px">#</th>
+	      <th>Nome</th>		         
+	      <th>Opções</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  #{list items:curso.alunos, as:'aluno'} 
+	  <tr>
+	  	<td>${aluno_index}</td>
+	    <td>${aluno.nome}</td>    		    
+	    <td>
+	    	<a class="btn btn-block btn-outline-danger btn-sm" href="@{Cursos.desvincularAluno(curso.id, aluno.id)}">Desvincular do Curso</a>		    			    	
+	    </td>
+	  </tr>
+	  #{/list}
+	  </tbody>
+	</table>  	
 	
 	#{/if}
-	
-	<br>
-	
-	<input type="submit" value="Enviar">	
-</form>
-
-#{if curso != null}
-<form action="@{Cursos.adicionarAluno}">
-<input type="hidden" name="idCurso" value="${curso.id}">
-<br>
-	<b>Alunos não matriculados:</b>
-	<select name="idAluno">
-		#{list items:alunosNaoMatriculados, as:'alunoNaoMat'}
-			<option value="${alunoNaoMat.id}">${alunoNaoMat.nome}</option>
-		#{/list}
-	</select><br>
-	<input type="submit" value="Adicionar aluno ao curso">	
-</form>
+	   
+   </div>
+   <div class="card-footer">
+     <input type="submit" class="btn btn-info" value="Enviar">
+   </div>
+   </form>
+</div>
+ 
+#{if curso?.id != null}
+<div class="card card-primary card-outline">
+  <div class="card-header">
+    <h3 class="card-title">Alunos não matriculados</h3>
+  </div>
+  <!-- /.card-header -->
+  <!-- form start -->  
+  <div class="card-body">
+  
+  	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th style="width: 10px">#</th>
+	      <th>Nome</th>		         
+	      <th>Opções</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  #{list items:alunosNaoMatriculados, as:'alunoNaoMat'} 
+	  <tr>
+	  	<td>${alunoNaoMat_index}</td>
+	    <td>${alunoNaoMat.nome}</td>    		    
+	    <td>
+	    	<a class="btn btn-block btn-outline-primary btn-sm" href="@{Cursos.adicionarAluno(curso.id, alunoNaoMat.id)}">Matricular</a>		    			    	
+	    </td>
+	  </tr>
+	  #{/list}
+	  </tbody>
+	</table>  
+  </div>
+</div>
 #{/if}

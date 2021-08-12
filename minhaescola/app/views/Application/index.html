@@ -1,12 +1,37 @@
-#{extends 'main.html' /}
+#{extends 'main-admin.html' /}
 #{set title:'Sistema de Controle Acadêmico' /}
 
-<h1>Minha Escola - Sistema de Controle Acadêmico</h1>
+#{set pageTitle:'Sistema de Controle Acadêmico' /}
 
-<ul>
-	<li><a href="@{Alunos.form}">Cadastro de Aluno</a></li>
-	<li><a href="@{Alunos.listar}">Listagem de Alunos</a></li>
-	
-	<li><a href="@{Cursos.form}">Cadastro de Curso</a></li>
-	<li><a href="@{Cursos.listar}">Listagem de Cursos</a></li>
-</ul>
+<div class="row">
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3>${totalAlunos}</h3>
+
+        <p>Alunos</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-user-graduate"></i>
+      </div>
+      <a href="@{Alunos.listar}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-success">
+      <div class="inner">
+        <h3>${totalCursos}<sup style="font-size: 20px"></sup></h3>
+
+        <p>Cursos</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <a href="@{Cursos.listar}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>  
+  <!-- ./col -->
+</div>

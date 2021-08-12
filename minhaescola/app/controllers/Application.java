@@ -12,8 +12,10 @@ import models.*;
 public class Application extends Controller {
 		
 	// página inicial do sistema
-    public static void index() {    	
-        render();
+    public static void index() {
+    	long totalAlunos = Aluno.count();
+    	long totalCursos = Curso.count();
+        render(totalAlunos, totalCursos);
     }
     
     public static void login() {
@@ -23,10 +25,24 @@ public class Application extends Controller {
     public static void autenticar(String email, String senha) {
     	
     	Usuario usuario = Usuario.find("email=? and senha=?", email, senha).first();
-    	
-    	if(usuario != null) {
+    	    	
+    	if(usuario != null && usuario instanceof Aluno) {
+    		
+    		session.put("usuarioID", usuario.id);
     		session.put("emailUsuarioAutenticado", usuario.email);
-    		index();
+    		session.put("tipoUsuario", "ALUNO");   
+    		
+    		Aluno aluno = (Aluno) usuario;
+    		
+    		if(aluno.foto != null) {
+    			session.put("alunoTemFoto", true);
+    		}    		
+    		
+    		Alunos.paginaInicial();
+    	}else if (usuario != null && usuario instanceof Admin) {
+    		session.put("emailUsuarioAutenticado", usuario.email);
+    		session.put("tipoUsuario", "ADMIN");
+    		index();    	
     	}else {
     		flash.error("Usuário ou senha inválidos!");
     		login();

@@ -1,18 +1,26 @@
 package controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import models.Aluno;
 import models.Curso;
+import play.cache.Cache;
+import play.data.validation.Valid;
 import play.mvc.Controller;
-import sun.security.util.SecurityConstants;
 
 public class Alunos extends Controller{
 	
-	public static void form() {	
-		List<Curso> cursos = Curso.findAll();
-		render(cursos);
+	public static void paginaInicial() {
+		renderTemplate("Alunos/index.html");
+	}
+	
+	public static void form() {
+		
+		Aluno aluno = (Aluno) Cache.get("alu");
+		Cache.clear();
+		
+		List<Curso> cursos = Curso.findAll();			
+		render(cursos, aluno);
 	}
 	
 	public static void listar() {
@@ -62,7 +70,13 @@ public class Alunos extends Controller{
 //		listar();
 //	}
 	
-	public static void salvar(Aluno aluno) {
+	public static void salvar(@Valid Aluno aluno) {
+		
+		if(validation.hasErrors()) {
+			Cache.add("alu", aluno);
+			validation.keep();
+			form();
+		}		
 		aluno.save();
 		listar();
 	}

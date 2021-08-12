@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import interceptors.Seguranca;
 import models.Aluno;
 import models.Curso;
+import play.cache.Cache;
+import play.data.validation.Valid;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -15,8 +17,10 @@ import play.mvc.With;
 public class Cursos extends Controller {
 	
 	public static void form() {
+		Curso curso = (Curso) Cache.get("curso");
+		Cache.clear();
 		List<Aluno> alunos = Aluno.findAll();	
-		render(alunos);
+		render(curso, alunos);
 	}
 	
 	public static void editar(Long id) {
@@ -41,7 +45,14 @@ public class Cursos extends Controller {
 		render(cursos);
 	}
 	
-	public static void salvar(Curso curso) {
+	public static void salvar(@Valid Curso curso) {
+		
+		if(validation.hasErrors()) {			
+			Cache.add("curso", curso);
+			validation.keep();
+			form();
+		}
+		flash.success("Curso salvo com sucesso.");
 		curso.save();
 		listar();
 	}
@@ -52,6 +63,13 @@ public class Cursos extends Controller {
 		aluno.curso = curso;
 		aluno.save();
 		editar(idCurso);		
+	}
+	
+	public static void desvincularAluno(Long idCurso, Long idAluno) {
+		Aluno aluno = Aluno.findById(idAluno);
+		aluno.curso = null;
+		aluno.save();
+		editar(idCurso);
 	}
 
 }

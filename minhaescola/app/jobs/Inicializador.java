@@ -1,5 +1,6 @@
 package jobs;
 
+import models.Admin;
 import models.Aluno;
 import models.Curso;
 import models.Usuario;
@@ -12,15 +13,12 @@ public class Inicializador extends Job {
 	@Override
 	public void doJob() throws Exception {
 		if(Usuario.count() == 0) {
-			Usuario usuario = new Usuario();
-			usuario.email = "joao.helis@ifrn.edu.br";
-			usuario.senha = "123";
-			usuario.save();
 			
-			Usuario usuario2 = new Usuario();
-			usuario2.email = "felipe@ifrn.edu.br";
-			usuario2.senha = "123";
-			usuario2.save();						
+			Admin admin = new Admin();
+			admin.nome = "Admin";
+			admin.email = "admin@ifrn.edu.br";
+			admin.senha = "123";
+			admin.save();							
 		}
 		
 		Curso curso = null;
@@ -36,7 +34,7 @@ public class Inicializador extends Job {
 		
 		if(Aluno.count() == 0) {
 			Aluno aluno = new Aluno();
-			aluno.nome = "Fulano";
+			aluno.nome = "Fulano";			
 			aluno.curso = curso;
 			aluno.save();
 			
