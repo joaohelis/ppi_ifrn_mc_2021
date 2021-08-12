@@ -1,4 +1,5 @@
-#{extends 'main-admin.html' /}
+#{extends session.get("nomeArquivoMain") /}
+
 #{set title:'Listagem de Cursos' /}
 #{set pageTitle:'Listagem de Cursos' /}
 
@@ -24,6 +25,20 @@
 		    <td>${curso.nome}</td>    		    
 		    <td>
 		    	<a href="@{Cursos.detalhes(curso.id)}">Detalhes</a>
+		    	
+		    	#{if session.get('tipoUsuario').equals("ALUNO")}
+		    	
+		    	#{if !curso.verificarAlunoMatriculado(session.get("usuarioID"))}
+		    	
+		    	<a class="btn btn-primary" 
+		    		href="@{Cursos.matricularAluno(curso.id)}">Realizar Matrícula</a>
+		    	#{/if}
+		    	#{else}
+		    	ALUNO JÁ MATRICULADO - <a class="btn btn-danger" 
+		    		href="@{Cursos.desmatricularAluno(curso.id)}">Excluir Matrícula</a>
+		    	#{/else}
+		    	
+		    	#{/if}
 		    	
 		    	#{if session.get('tipoUsuario').equals("ADMIN")}		    			    		    			    
 		    	<a href="@{Cursos.editar(curso.id)}">Editar</a>

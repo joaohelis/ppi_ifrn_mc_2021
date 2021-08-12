@@ -14,7 +14,7 @@ public class Application extends Controller {
 	// página inicial do sistema
     public static void index() {
     	long totalAlunos = Aluno.count();
-    	long totalCursos = Curso.count();
+    	long totalCursos = Curso.count();    	    	    	
         render(totalAlunos, totalCursos);
     }
     
@@ -30,18 +30,20 @@ public class Application extends Controller {
     		
     		session.put("usuarioID", usuario.id);
     		session.put("emailUsuarioAutenticado", usuario.email);
-    		session.put("tipoUsuario", "ALUNO");   
+    		session.put("tipoUsuario", "ALUNO");  
+    		session.put("nomeArquivoMain", "main-aluno.html");
     		
-    		Aluno aluno = (Aluno) usuario;
+    		Aluno aluno = (Aluno) usuario;    		    		
     		
-    		if(aluno.foto != null) {
+    		if(aluno.foto.exists()) {
     			session.put("alunoTemFoto", true);
     		}    		
     		
     		Alunos.paginaInicial();
     	}else if (usuario != null && usuario instanceof Admin) {
     		session.put("emailUsuarioAutenticado", usuario.email);
-    		session.put("tipoUsuario", "ADMIN");
+    		session.put("tipoUsuario", "ADMIN");  
+    		session.put("nomeArquivoMain", "main-admin.html");
     		index();    	
     	}else {
     		flash.error("Usuário ou senha inválidos!");

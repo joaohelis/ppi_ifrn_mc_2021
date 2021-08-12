@@ -34,12 +34,16 @@ public class Inicializador extends Job {
 		
 		if(Aluno.count() == 0) {
 			Aluno aluno = new Aluno();
-			aluno.nome = "Fulano";			
+			aluno.nome = "Fulano";	
+			aluno.email = "fulano@ifrn.edu.br";
+			aluno.senha = "123";
 			aluno.curso = curso;
 			aluno.save();
 			
 			Aluno aluno2 = new Aluno();
 			aluno2.nome = "Sicrano";
+			aluno2.email = "sicrano@ifrn.edu.br";
+			aluno2.senha = "123";
 			aluno2.curso = curso2;
 			aluno2.save();
 		}

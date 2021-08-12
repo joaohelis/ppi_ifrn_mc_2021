@@ -4,26 +4,22 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.data.validation.InPast;
-import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
-import play.db.jpa.Model;
 
 @Entity
 public class Aluno extends Usuario {	
 	
 	@Required
-	public String cpf;
-	
-	@Required
-	@MinSize(14)
-	public String matricula;
+	public String cpf;		
 	
 	@InPast(message="A data deve estar no passado.")
 	@Required
@@ -31,15 +27,18 @@ public class Aluno extends Usuario {
 	
 	public boolean ativo;
 	
-	public Blob foto;
+	public Blob foto;	
 	
 	@ManyToOne
 	@JoinColumn(name="curso_id")
 	public Curso curso; 
 	
+	@OneToMany(mappedBy="aluno")
+	public List<Matricula> matriculas;
+	
 	public Aluno() {
 		this.ativo = true;
-	}
+	}		
 	
 	public int calcularIdade() {				
 		LocalDate agora = LocalDate.now();		
