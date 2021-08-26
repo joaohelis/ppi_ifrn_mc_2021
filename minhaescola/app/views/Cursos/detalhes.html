@@ -25,12 +25,12 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		  #{list items:curso.alunos, as: 'aluno'} 
+		  #{list items:curso.matriculas, as: 'mat'} 
 		  <tr>
-		  	<td>${aluno_index}</td>
-		    <td>${aluno.nome}</td>    
-		    <td>${aluno.cpf}</td>
-		    <td>${aluno?.dataNascimento?.format("dd/MM/yyyy")}</td>		    
+		  	<td>${mat_index}</td>
+		    <td>${mat.aluno.nome}</td>    
+		    <td>${mat.aluno.cpf}</td>
+		    <td>${mat.aluno?.dataNascimento?.format("dd/MM/yyyy")}</td>		    
 		  </tr>
 		  #{/list}
 		  </tbody>

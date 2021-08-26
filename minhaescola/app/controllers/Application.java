@@ -10,12 +10,21 @@ import models.*;
 
 @With(Seguranca.class)
 public class Application extends Controller {
+	
+	public static void naoAutorizado() {
+		renderTemplate("errors/401.html");
+	}
 		
 	// página inicial do sistema
     public static void index() {
     	long totalAlunos = Aluno.count();
-    	long totalCursos = Curso.count();    	    	    	
-        render(totalAlunos, totalCursos);
+    	long totalCursos = Curso.count();
+    	String nomeDoTemplate = null;
+    	if(session.get("tipoUsuario").equals("ALUNO"))
+    		nomeDoTemplate = "Alunos/index.html";
+    	else
+    		nomeDoTemplate = "Application/index.html";
+        renderTemplate(nomeDoTemplate, totalAlunos, totalCursos);
     }
     
     public static void login() {

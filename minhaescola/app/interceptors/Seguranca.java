@@ -4,6 +4,7 @@ import annotations.Administrador;
 import controllers.Application;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.results.Unauthorized;
 
 public class Seguranca extends Controller {
 
@@ -20,7 +21,7 @@ public class Seguranca extends Controller {
 		Administrador adminAnnotation = getActionAnnotation(Administrador.class);
 		if (adminAnnotation != null && !tipoUsuario.equals("ADMIN")) {
 			flash.error("Acesso restrito aos administradores do sistema");
-			Application.login();
+			Application.naoAutorizado();			
 		}
 	}
 
